@@ -1,0 +1,7 @@
+{
+    "testEnvironment": "node",
+    "testMatch": ["**/backend/**/*.test.js"],
+    "globalSetup": "./backend/test/globalSetup.js",
+    "globalTeardown": "./backend/test/globalTeardown.js",
+    "setupFilesAfterEnv": ["./backend/test/setupFileAfterEnv.js"]
+}
