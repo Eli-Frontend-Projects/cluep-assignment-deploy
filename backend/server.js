@@ -1,11 +1,11 @@
 import express from "express";
-import connectToMongoDB from "./db/connectToMongoDB.js";
 import dotenv from "dotenv";
 import cors from 'cors';
 import bodyParser from 'body-parser'
 
 import { userRoutes } from './routes/user.js'
 import { messageRoutes } from './routes/message.js'
+import { initDatabase } from './db/init.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -17,8 +17,7 @@ app.use(bodyParser.json());
 userRoutes(app);
 messageRoutes(app);
 
-// Test MongoDB connection
-connectToMongoDB();
+await initDatabase();
 
 app.get("/", (req, res) => {
     res.send("Hello world");
