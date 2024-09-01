@@ -1,43 +1,80 @@
-// backend/createUser.js
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import { User } from '../db/models/user.js'; 
+import { User } from '../db/models/user.js';
+import { Message } from '../db/models/message.js';
 import { initDatabase } from '../db/init.js';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
-// Load environment variables from .env file
 dotenv.config();
 
-const createUser = async () => {
+const populateDatabase = async () => {
   try {
     // Initialize the database connection
     await initDatabase();
 
-    // Define user details
-    const userData = {
-      userID: 'user123',
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'johndoe@example.com',
-      password: 'securepassword123',
-    };
+    // Clear existing collections
+    await User.deleteMany({});
+    console.log('User collection cleared');
+    
+    await Message.deleteMany({});
+    console.log('Message collection cleared');
 
-    // Hash the password
-    const saltRounds = 10;
-    userData.password = await bcrypt.hash(userData.password, saltRounds);
+    // Drop erroneous index if exists
+    const userIndexes = await User.collection.indexes();
+    const userIDIndex = userIndexes.find(index => index.name === 'userID_1');
+    if (userIDIndex) {
+      await User.collection.dropIndex('userID_1');
+      console.log('Dropped userID_1 index from User collection');
+    }
 
-    // Create a new user instance
-    const newUser = new User(userData);
+    // Define the users to be added
+    const usersData = [
+      {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'johndoe@example.com',
+        password: 'securepassword123',
+      },
+      {
+        firstName: 'Jane',
+        lastName: 'Smith',
+        email: 'janesmith@example.com',
+        password: 'anothersecurepassword456',
+      },
+    ];
 
-    // Save the user to the database
-    const savedUser = await newUser.save();
-    console.log('User created successfully:', savedUser);
+    // Create and save the users
+    for (const userData of usersData) {
+      // Hash the password
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
+
+      // Create a new user document
+      const newUser = new User({ ...userData, password: hashedPassword });
+      const savedUser = await newUser.save();
+      console.log('User created successfully:', savedUser.toObject());
+
+      // Create messages for each user
+      const messages = [
+        { userID: savedUser._id, message: `Hello, this is a message from ${savedUser.firstName}.` },
+        { userID: savedUser._id, message: `Another message from ${savedUser.firstName}.` },
+      ];
+
+      // Save the messages
+      for (const msg of messages) {
+        const newMessage = new Message(msg);
+        const savedMessage = await newMessage.save();
+        console.log('Message created successfully:', savedMessage.toObject());
+      }
+    }
   } catch (error) {
-    console.error('Error creating user:', error);
+    console.error('Error populating database:', error);
   } finally {
-    mongoose.connection.close(); // Close the connection after the operation
+    // Close the database connection
+    mongoose.connection.close();
+    console.log('Database connection closed');
   }
 };
 
-// Call the function to create the user
-createUser();
+// Run the function to populate the database
+populateDatabase();
