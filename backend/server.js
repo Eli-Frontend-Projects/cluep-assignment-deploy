@@ -5,6 +5,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser'
 
 import { userRoutes } from './routes/user.js'
+import { messageRoutes } from './routes/message.js'
 
 // Load environment variables from .env file
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 userRoutes(app);
+messageRoutes(app);
 
 // Test MongoDB connection
 connectToMongoDB();
