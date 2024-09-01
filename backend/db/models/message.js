@@ -6,11 +6,6 @@ const messageSchema = new mongoose.Schema({
     ref: 'User', 
     required: true,
   },
-  messageID: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   message: {
     type: String,
     required: true,
