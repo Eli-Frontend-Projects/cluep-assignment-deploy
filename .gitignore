@@ -3,3 +3,4 @@ node_modules
 *.pdf
 App.test.js
 notes
+*.epub
