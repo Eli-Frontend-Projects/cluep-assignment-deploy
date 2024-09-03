@@ -1,8 +1,8 @@
 import React from 'react';
 
-const SidebarItem = ({ icon, label }) => {
+const SidebarItem = ({ id, icon, label }) => {
   return (
-    <div className="flex items-center  mb-2 rounded-md p-2">
+    <div id={id} className="flex items-center mb-2 rounded-md p-2">
       <img 
         src={icon} 
         alt={`${label} icon`} 
