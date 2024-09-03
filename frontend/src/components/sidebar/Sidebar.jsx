@@ -12,7 +12,6 @@ const Sidebar = () => {
 
   return (
     <div className="relative flex">
-      {/* Sidebar */}
       <div
         className={`flex flex-col justify-between bg-black h-screen m-1 transition-all duration-300 ${
           isVisible ? 'w-[200px]' : 'w-0'
@@ -35,18 +34,18 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Toggle Button */}
       <div
-        className={`flex items-center transition-all duration-300 ${
+        className={`flex items-center transition-all duration-10 ${
           isVisible ? 'ml-0' : 'ml-1'
         }`}
       >
         <button
+          id="sidebar-toggle" 
           onClick={toggleSidebar}
           className=""
         >
           <img
-            src={isVisible ? "/Icons/Sidebar-1.png" : "/Icons/chevron_right_black_24dp.svg" }
+            src={isVisible ? "/Icons/Sidebar-1.png" : "/Icons/chevron_right_black_24dp.svg"}
             alt="Toggle Sidebar"
             className={"h-6"}
           />
