@@ -1,20 +1,18 @@
 import React from 'react';
-import Sidebar from './components/sidebar/Sidebar';
-import ChatArea from './components/chat/ChatArea';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Home from './pages/Home';
 
 function App() {
   return (
-    <div className="flex flex-col md:flex-row h-screen">
-      {/* Sidebar */}
-      <div className="hidden md:flex md:w-64 bg-gray-200 p-4">
-        <Sidebar />
-      </div>
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
-        <ChatArea />
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </Router>
   );
 }
 
