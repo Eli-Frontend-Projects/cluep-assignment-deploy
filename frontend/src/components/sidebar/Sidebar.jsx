@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import SidebarItem from './SidebarItem';
 
-const SIDEBAR_WIDTH = '200px';
-
 const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -11,13 +9,13 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="relative flex">
+    <div className="flex">
       <div
-        className={`flex flex-col justify-between bg-black h-screen m-1 transition-all duration-300 ${
-          isVisible ? 'w-[200px]' : 'w-0'
+        className={`flex flex-col justify-between bg-black m-1 transition-all duration-300 ${
+          isVisible ? 'w-[150px]' : 'w-0'
         } overflow-hidden`}
       >
-        <div>
+        <div className="flex flex-col">
           <SidebarItem id="sidebar-profile" icon="/Icons/ProfilePic.jpg" label="Profile" />
           <SidebarItem id="sidebar-chats" icon="/Icons/Chats.png" label="Chats" />
           <SidebarItem id="sidebar-sent" icon="/Icons/Sent.png" label="Sent" />
