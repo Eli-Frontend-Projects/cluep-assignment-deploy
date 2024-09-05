@@ -4,13 +4,15 @@ import ChatArea from '../components/chat/ChatArea';
 
 function Home() {
   return (
-    <div className="flex flex-col md:flex-row h-screen">
-      <div className="hidden md:flex md:w-64 bg-gray-200 p-4">
+    <div className="h-screen bg-red-100 p-4 flex items-center justify-center">
+      <div className="flex flex-col md:flex-row bg-white border border-gray-300 rounded-lg overflow-hidden" style={{ width: '770px', height: '610px' }}>
+        {/* Sidebar for desktop */}
         <Sidebar />
-      </div>
 
-      <div className="flex-1 flex flex-col">
-        <ChatArea />
+        {/* Chat space */}
+        <div className="flex-1 flex flex-col">
+          <ChatArea />
+        </div>
       </div>
     </div>
   );
