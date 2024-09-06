@@ -1,10 +1,10 @@
 import React from 'react';
 
-// Function to create a button
+// Function to create a button with hover effect
 const TaskButton = () => (
-<button
-  className="text-gray-500 rounded-2xl hover:bg-blue-600 border border-gray-300 w-[149px] h-[40px]"
->
+  <button
+    className="text-gray-500 rounded-2xl border border-gray-300 w-[149px] h-[40px] transform transition-transform duration-300 hover:-translate-y-1"
+  >
     Task
   </button>
 );
@@ -12,7 +12,7 @@ const TaskButton = () => (
 const TaskPanel = () => {
 
   return (
-    <div className="flex justify-start w-full space-x-3 w-[149px] h-[40px] overflow-hidden">
+    <div className="flex justify-start w-full space-x-3 overflow-hidden">
       <TaskButton />
       <TaskButton />
       <TaskButton />
