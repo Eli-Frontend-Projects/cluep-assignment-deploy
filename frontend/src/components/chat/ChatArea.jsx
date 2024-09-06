@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import SearchBox from '../search/SearchBox.jsx';
+import SearchBox from '../search/SearchBox';
 import Conversation from './Conversation';
+import TaskPanel from './TaskPanel';
+import MessageInput from './MessageInput'; 
 
 const ChatArea = () => {
   // State variables
@@ -50,8 +52,8 @@ const ChatArea = () => {
   );
 
   return (
-    <div className="flex h-full justify-between bg-green-100 rounded-md">
-      <div className='flex flex-col justify-between w-full bg-red-100 conversation-input-panel-section'>
+    <div className="flex h-full justify-between bg-white rounded-md">
+      <div className='flex flex-col justify-between w-full bg-white conversation-input-panel-section'>
         {/* Conditionally render Search Component */}
         {isSearchVisible && (
           <div>
@@ -70,54 +72,28 @@ const ChatArea = () => {
           <Conversation conversations={filteredConversations} />
         </div>
 
+        <TaskPanel/>
+
         {/* Input and Attach File */}
-        <div className="flex items-center">
-          {/* Hidden file input */}
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="hidden"
-            id="fileInput"
-          />
-          {/* Attach button */}
-          <label
-            htmlFor="fileInput"
-            className="bg-gray-700 text-white px-4 py-2 rounded-l-md cursor-pointer"
-            style={{ height: '55px' }} // Set height for the Attach button
-          >
-            Attach
-          </label>
-          {/* Message input */}
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type a message..."
-            className="flex-1 p-2 bg-gray-200 text-black focus:outline-none"
-            style={{ height: '55px' }} // Set height for the input
-          />
-          {/* Send button */}
-          <button
-            onClick={handleSend}
-            className="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700"
-            style={{ height: '55px' }} // Set height for the Send button
-          >
-            Send
-          </button>
-        </div>
+        <MessageInput
+          message={message}
+          onMessageChange={setMessage}
+          onSend={handleSend}
+          onFileChange={handleFileChange}
+        />
       </div>
       <div className="search-button-area">
         {/* Search/Cancel button */}
         <div className='w-[70px] flex justify-center mt-[10px]'>
           {!isSearchVisible && 
           <button onClick={toggleSearch} className="hover:opacity-75">
-  <img
-    className="w-7 h-7 cursor-pointer"
-    src="https://assets.ccbp.in/frontend/react-js/google-search-icon.png"
-    alt="search icon"
-  />
-</button>
-}
+            <img
+              className="w-7 h-7 cursor-pointer"
+              src="https://assets.ccbp.in/frontend/react-js/google-search-icon.png"
+              alt="search icon"
+            />
+          </button>
+          }
         </div>
       </div>
     </div>
