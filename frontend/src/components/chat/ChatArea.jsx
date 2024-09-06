@@ -122,7 +122,7 @@ const ChatArea = ({ isSidebarVisible }) => {
           {/* Search/Cancel button */}
           <div className='flex justify-center'>
             {!isSearchVisible && 
-            <button onClick={toggleSearch} className="hover:opacity-75">
+            <button onClick={toggleSearch} className="btn">
               <img
                 className="w-7 h-7 cursor-pointer"
                 src="https://assets.ccbp.in/frontend/react-js/google-search-icon.png"
