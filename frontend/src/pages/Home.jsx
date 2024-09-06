@@ -4,7 +4,7 @@ import ChatArea from '../components/chat/ChatArea';
 
 function Home() {
   return (
-    <div className="h-screen bg-red-100 p-4 flex items-center justify-center">
+    <div className="h-screen bg-white p-4 flex items-center justify-center">
       <div className="flex flex-col md:flex-row bg-white border border-gray-300 rounded-lg overflow-hidden" style={{ width: '770px', height: '610px' }}>
         {/* Sidebar for desktop */}
         <Sidebar />
