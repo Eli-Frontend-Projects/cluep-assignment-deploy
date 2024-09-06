@@ -12,7 +12,7 @@ const TaskButton = () => (
 const TaskPanel = () => {
 
   return (
-    <div className="flex justify-between w-full space-x-2">
+    <div className="flex justify-start w-full space-x-3 w-[149px] h-[40px] overflow-hidden">
       <TaskButton />
       <TaskButton />
       <TaskButton />
