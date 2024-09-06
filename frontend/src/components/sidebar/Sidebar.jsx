@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+// Sidebar.js
+import React, { useContext } from 'react';
+import { SidebarContext } from './SidebarContext'; // Adjust path as needed
 import SidebarItem from './SidebarItem';
 
 const Sidebar = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const { isVisible, setIsVisible } = useContext(SidebarContext);
 
   const toggleSidebar = () => {
     setIsVisible(!isVisible);
@@ -33,8 +35,8 @@ const Sidebar = () => {
       </div>
 
       <div
-        className={`flex items-center transition-all duration-10 ${
-          isVisible ? 'ml-0' : 'ml-1'
+        className={`flex items-center transition-all duration-10 ml-0 ${
+          isVisible ? '' : 'w-[70px]'
         }`}
       >
         <button
