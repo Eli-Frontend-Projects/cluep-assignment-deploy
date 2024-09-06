@@ -32,7 +32,7 @@ const SearchBox = ({ searchQuery, setSearchQuery, handleSearch, showSearchBox, s
           />
           {/* X button to clear the input and hide the search box */}
           <button
-            className="mr-6 text-lg text-gray-600 cursor-pointer"
+            className="mr-4 text-lg text-gray-600 cursor-pointer"
             onClick={clearSearchInput}
           >
             &#x2715; {/* Unicode for X symbol */}
