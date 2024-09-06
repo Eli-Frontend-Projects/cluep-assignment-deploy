@@ -27,7 +27,7 @@ const MessageInput = ({ message, onMessageChange, onSend, onFileChange }) => {
         value={message}
         onChange={(e) => onMessageChange(e.target.value)}
         placeholder="What's on your mind?"
-        className="flex-1 p-4 text-black focus:outline-none mx-2 rounded-md"
+        className="flex-1 p-4 text-black focus:outline-none mx-2 rounded-md h-full"
       />
       {/* Send button with arrow icon from Icons folder */}
       <button
