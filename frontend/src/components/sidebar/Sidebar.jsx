@@ -11,7 +11,7 @@ const Sidebar = () => {
   return (
     <div className="flex">
       <div
-        className={`flex flex-col justify-between bg-black m-1 transition-all duration-300 ${
+        className={`flex flex-col justify-between bg-black transition-all duration-300 ${
           isVisible ? 'w-[150px]' : 'w-0'
         } overflow-hidden`}
       >
@@ -45,7 +45,7 @@ const Sidebar = () => {
           <img
             src={isVisible ? "/Icons/Sidebar-1.png" : "/Icons/chevron_right_black_24dp.svg"}
             alt="Toggle Sidebar"
-            className={"h-6"}
+            className={"h-6 ml-1"}
           />
         </button>
       </div>
