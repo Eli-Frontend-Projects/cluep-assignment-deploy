@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { SidebarContext } from './SidebarContext'; // Adjust path as needed
 
 const Sidebar = () => {
-  const { isVisible, setIsVisible } = useContext(SidebarContext);
+  const [isVisible, setIsVisible] = useState(true);
   const [isHoveringSidebar, setIsHoveringSidebar] = useState(false);
   const [selectedItem, setSelectedItem] = useState("sidebar-chats");
 

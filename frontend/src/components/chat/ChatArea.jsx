@@ -4,7 +4,7 @@ import Conversation from './Conversation';
 import TaskPanel from './TaskPanel';
 import MessageInput from './MessageInput'; 
 
-const ChatArea = ({ isSidebarVisible }) => {
+const ChatArea = () => {
   // State variables
   const [message, setMessage] = useState('');
   const [file, setFile] = useState(null);
