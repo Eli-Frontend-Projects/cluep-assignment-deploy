@@ -51,7 +51,7 @@ const ChatArea = () => {
   );
 
   return (
-    <div className="grid grid-cols-[auto,70px] grid-rows-[auto,53px,87px] rounded-md w-full h-full">
+    <div className="grid grid-cols-[auto,70px] grid-rows-[minmax(0,1fr)_53px_87px] rounded-md w-full h-full">
       {/* Left Column - Conversations */}
       <div className="flex flex-col justify-between h-full col-span-1">
         {/* Conditionally render Search Component */}
@@ -66,7 +66,7 @@ const ChatArea = () => {
         )}
 
         {/* Chat Messages */}
-        <div className="flex-1 overflow-y-auto mb-4">
+        <div className="ml-2 mb-4 overflow-y-auto overflow-x-hidden h-full">
           <Conversation conversations={filteredConversations} />
         </div>
       </div>
