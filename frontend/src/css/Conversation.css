@@ -1,6 +1,7 @@
 /* conversation.css */
 .message-bubble {
     position: relative;
+    max-width: 470px;
     margin-bottom: 12px;
     padding: 10px 20px;
     line-height: 24px;
