@@ -27,7 +27,7 @@ const Sidebar = () => {
           <SidebarItem
             id="sidebar-profile"
             icon="/Icons/ProfilePic.jpg"
-            label="Profile"
+            label="Jane Cooper"
             isSelected={selectedItem === "sidebar-profile"}
             isHovering={isHoveringSidebar}
             onClick={() => handleItemClick("sidebar-profile")}
