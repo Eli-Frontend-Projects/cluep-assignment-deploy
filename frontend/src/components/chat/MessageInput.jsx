@@ -16,7 +16,7 @@ const MessageInput = ({ message, onMessageChange, onSend, onFileChange }) => {
   };
 
   return (
-    <div className="bg-white flex items-center justify-between rounded-xl mt-[16px] mb-[16px] border border-gray-400 relative">
+    <div className="bg-white flex items-center justify-between rounded-xl mt-[16px] mb-[16px] border border-gray-400">
       {/* Hidden file input */}
       <input
         type="file"
@@ -29,7 +29,7 @@ const MessageInput = ({ message, onMessageChange, onSend, onFileChange }) => {
       <div
         className={`w-[30px] h-[30px] ml-[32px] flex items-center justify-center cursor-pointer rounded-full ${
           isMenuVisible ? "" : "btn" // Conditional class application
-        }`}
+        }`} 
         onClick={toggleMenu}
       >
         <img
@@ -64,7 +64,7 @@ const MessageInput = ({ message, onMessageChange, onSend, onFileChange }) => {
       {isMenuVisible && (
         <div className="absolute bottom-[45px] left-[5px] bg-gray-100 border border-gray-300 p-2 rounded-md shadow-lg flex items-center space-x-2">
           <img
-            src="/Icons/upload_file_black_24dp.svg" // Add the upload icon
+            src="/Icons/upload_file_black_24dp.svg" 
             alt="Upload"
             className="w-5 h-5 text-gray-700"
           />
