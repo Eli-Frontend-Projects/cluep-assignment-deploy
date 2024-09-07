@@ -1,12 +1,16 @@
 import React from 'react';
 
-const SidebarItem = ({ id, icon, label, isSelected, onClick }) => {
+const SidebarItem = ({ id, icon, label, isSelected, isHovering, onClick }) => {
   return (
     <div
       id={id}
       onClick={onClick}
-      className={`flex items-center mb-2 rounded-md p-2 cursor-pointer transition-colors ${
-        isSelected ? 'bg-gray-700 text-white' : 'text-white'
+      className={`flex items-center mb-2 rounded-md p-2 cursor-pointer transition-colors hover:bg-gray-700 ${
+        isSelected && !isHovering
+          ? 'bg-gray-700 text-white'
+          : isHovering
+          ? 'hover:bg-gray-700 hover:text-gray-300'
+          : 'text-white'
       }`}
     >
       <img 
