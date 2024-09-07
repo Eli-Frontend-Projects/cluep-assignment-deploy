@@ -1,0 +1,34 @@
+/* conversation.css */
+.message-bubble {
+    position: relative;
+    margin-bottom: 12px;
+    padding: 10px 20px;
+    line-height: 24px;
+    background-color: #0B93F6; /* Blue background for send bubble */
+    color: white;
+    border-radius: 25px;
+    word-wrap: break-word;
+    align-self: flex-end; /* Align the bubble to the right */
+}
+
+.message-bubble.tail:before,
+.message-bubble.tail:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 25px;
+}
+
+.message-bubble.tail:before {
+    right: -7px;
+    width: 20px;
+    background-color: #0B93F6; /* Blue background for send bubble */
+    border-bottom-left-radius: 16px 14px;
+}
+
+.message-bubble.tail:after {
+    right: -26px;
+    width: 26px;
+    background-color: white; /* Background color of the page */
+    border-bottom-left-radius: 10px;
+}
