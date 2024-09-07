@@ -12,7 +12,6 @@ const TaskButton = () => (
 const TaskPanel = () => {
   return (
     <div className="flex justify-start pt-3 col-span-2 scrollbar-hidden">
-      {/* Container div for buttons */}
       <div className="flex space-x-2">
         <TaskButton />
         <TaskButton />
