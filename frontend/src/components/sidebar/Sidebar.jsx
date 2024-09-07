@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -15,7 +15,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="flex"
+      className="hidden lg:flex"
     >
       {/* Sidebar Content */}
       <div
