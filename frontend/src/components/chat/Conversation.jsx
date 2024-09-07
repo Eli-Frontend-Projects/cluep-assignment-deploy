@@ -1,4 +1,6 @@
+// Conversation.js
 import React from 'react';
+import '../../css/Conversation.css'; // Import the CSS file from the src folder
 
 const Conversation = ({ conversations }) => {
   return (
@@ -6,7 +8,7 @@ const Conversation = ({ conversations }) => {
       {conversations.map((msg, index) => (
         <div
           key={index}
-          className="bg-blue-600 text-white p-3 rounded-lg max-w-xs ml-auto"
+          className={`message-bubble ${index === conversations.length - 1 ? 'tail' : ''}`}
         >
           {msg}
         </div>
