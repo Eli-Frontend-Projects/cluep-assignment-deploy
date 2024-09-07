@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import SidebarItem from './SidebarItem'; 
+import SidebarToggleButton from './SidebarToggleButton';
 
 const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -14,10 +16,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div
-      className="hidden lg:flex"
-    >
-      {/* Sidebar Content */}
+    <div className="hidden lg:flex">
       <div
         className={`flex flex-col justify-between bg-black transition-all duration-300 ${
           isVisible ? 'w-[160px]' : 'w-0'
@@ -111,54 +110,12 @@ const Sidebar = () => {
       </div>
 
       {/* Sidebar Toggle Button */}
-      <div className={`flex justify-center items-center ${!isVisible ? "w-[70px]" :""}`}> 
-        <div
-        onMouseEnter={() => setIsHoveringSidebar(true)}
-        onMouseLeave={() => setIsHoveringSidebar(false)}
-          className="flex items-center transition-all duration-10 ml-0 h-6 btn"
-        >
-          <button
-            id="sidebar-toggle"
-            onClick={toggleSidebar}
-            className="relative"
-            onMouseEnter={() => setIsHoveringSidebar(true)}
-            onMouseLeave={() => setIsHoveringSidebar(false)}
-          >
-            <img
-              src={isVisible ? (isHoveringSidebar ? "/Icons/Sidebar-2.png" : "/Icons/Sidebar-1.png") : "/Icons/chevron_right_black_24dp.svg"}
-              alt="Toggle Sidebar"
-              className={`h-6 ml-1 transition-all duration-300`}
-            />
-          </button>
-      </div>
-
-      </div>
-    </div>
-  );
-};
-
-// SidebarItem Component
-const SidebarItem = ({ id, icon, label, isSelected, isHovering, onClick }) => {
-  return (
-    <div
-      id={id}
-      onClick={onClick}
-      className={`flex items-center mb-2 rounded-md p-2 cursor-pointer transition-colors hover:bg-gray-700 ${
-        isSelected && !isHovering
-          ? 'bg-gray-700 text-white'
-          : isHovering
-          ? 'hover:bg-gray-700 hover:text-gray-300'
-          : 'text-white'
-      }`}
-    >
-      <img 
-        src={icon} 
-        alt={`${label} icon`} 
-        className="w-6 h-6 mr-2 object-contain rounded" 
+      <SidebarToggleButton
+        isVisible={isVisible}
+        isHoveringSidebar={isHoveringSidebar}
+        toggleSidebar={toggleSidebar}
+        setIsHoveringSidebar={setIsHoveringSidebar}
       />
-      <span className="text-center rounded">
-        {label}
-      </span>
     </div>
   );
 };
