@@ -51,7 +51,7 @@ const ChatArea = () => {
   );
 
   return (
-    <div className="grid grid-cols-[auto,70px] grid-rows-[minmax(0,1fr)_53px_87px] rounded-md w-full h-full">
+    <div className="grid grid-cols-[auto,70px] grid-rows-[minmax(0,1fr)_53px_auto] rounded-md w-full h-full">
       {/* Left Column - Conversations */}
       <div className="flex flex-col justify-between h-full col-span-1">
         {/* Conditionally render Search Component */}
@@ -66,26 +66,28 @@ const ChatArea = () => {
         )}
 
         {/* Chat Messages */}
-        <div className="ml-2 mb-4 overflow-y-auto overflow-x-hidden h-full">
+        <div className="mt-3 ml-2 mb-4 overflow-y-auto overflow-x-hidden h-full">
           <Conversation conversations={filteredConversations} />
         </div>
       </div>
 
       {/* Right Column - Search Button */}
-      <div className="flex flex-col justify-between col-span-1 mt-2">
-        <div className="search-button-area flex justify-center">
-          <button onClick={toggleSearch} className="hover:opacity-75">
-            <img
-              className="w-7 h-7 cursor-pointer"
-              src="https://assets.ccbp.in/frontend/react-js/google-search-icon.png"
-              alt="search icon"
-            />
-          </button>
+      {!isSearchVisible && (
+        <div className="flex flex-col justify-between col-span-1 mt-2">
+          <div className="search-button-area flex justify-center">
+            <button onClick={toggleSearch} className="hover:opacity-75">
+              <img
+                className="w-7 h-7 cursor-pointer"
+                src="https://assets.ccbp.in/frontend/react-js/google-search-icon.png"
+                alt="search icon"
+              />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* TaskPanel spanning two columns */}
-        <TaskPanel />
+      <TaskPanel />
         
       {/* Input and Attach File */}
       <MessageInput
@@ -95,7 +97,7 @@ const ChatArea = () => {
         onFileChange={handleFileChange}
       />
     </div>
-  );
+  ); 
 };
 
 export default ChatArea;
