@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const MessageInput = ({ message, onMessageChange, onSend, onFileChange }) => {
+const MessageInput = ({ message, onMessageChange, onSend }) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
   const inputRef = useRef(null);
 
   const handleFileChange = (e) => {
-    onFileChange(e);
     setMenuVisible(false);
   };
 
@@ -48,7 +47,7 @@ const MessageInput = ({ message, onMessageChange, onSend, onFileChange }) => {
         onChange={(e) => onMessageChange(e.target.value)}
         placeholder="What's on your mind?"
         className="flex-1 text-black focus:outline-none mx-2 rounded-md resize-none overflow-auto h-[40px] min-h-[40px] max-h-[120px]"
-        rows="1" // Ensure initial height fits one row
+        rows="1" 
   style={{
     overflow: 'hidden',
     paddingTop: '6px', // Adjust padding to center text vertically
