@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import {jwtDecode} from 'jwt-decode';
+import React, { useState } from 'react';
 
 import SidebarItem from './SidebarItem'; 
 import SidebarToggleButton from './SidebarToggleButton';
@@ -9,8 +8,6 @@ const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isHoveringSidebar, setIsHoveringSidebar] = useState(false);
   const [selectedItem, setSelectedItem] = useState("sidebar-chats");
-  const token = localStorage.getItem('authToken');
-  const userId = token ? jwtDecode(token).sub : null;
   const username = useFetchUsername() ?? "Loading...";
 
   const toggleSidebar = () => {
@@ -79,7 +76,7 @@ const Sidebar = () => {
           />
           <SidebarItem
             id="sidebar-connect-apps"
-            icon="/Icons/Connect apps.png"
+            icon="/Icons/Connect_apps.png"
             label="Connect apps"
             isSelected={selectedItem === "sidebar-connect-apps"}
             isHovering={isHoveringSidebar}
@@ -115,7 +112,6 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Sidebar Toggle Button */}
       <SidebarToggleButton
         isVisible={isVisible}
         isHoveringSidebar={isHoveringSidebar}
