@@ -8,7 +8,7 @@ export function useLogin() {
 
   const loginUser = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {email, password });
+      const response = await axios.post('http://localhost:5000/user/login', {email, password });
       const { token } = response.data;
       // Save token to localStorage or context
       localStorage.setItem('authToken', token);
