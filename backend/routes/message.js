@@ -2,9 +2,9 @@ import { requireAuth } from '../middleware/jwt.js';
 import {createMessage, getMessages} from '../controllers/message.js';
 
 export function messageRoutes(app){
-    app.get('/api/messages',  requireAuth, async (req, res) => {
+    app.get('/user/:id/msg',  requireAuth, async (req, res) => {
     try {
-        const userId = req.auth.sub; 
+        const userId = req.params.id; 
         return res.json(await getMessages(userId))
     } catch (err) {
       console.error('error listing messages', err)
@@ -12,9 +12,9 @@ export function messageRoutes(app){
     }
   })
 
-  app.post('/api/messages', requireAuth, async (req, res) => {
+  app.post('/user/:id/msg', requireAuth, async (req, res) => {
     try {
-      const userId = req.auth.sub; 
+      const userId = req.params.id; 
       const post = await createMessage(userId, req.body)
       return res.json(post)
     } catch (err) {
