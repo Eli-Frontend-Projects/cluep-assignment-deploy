@@ -1,6 +1,5 @@
-// Conversation.js
 import React, { useEffect, useRef } from 'react';
-import '../../css/Conversation.css'; // Import the CSS file from the src folder
+import '../../css/Conversation.css'; 
 
 const Conversation = ({ conversations }) => {
   const endOfMessagesRef = useRef(null);
@@ -19,7 +18,7 @@ const Conversation = ({ conversations }) => {
           {msg}
         </div>
       ))}
-      <div ref={endOfMessagesRef} /> {/* This div will act as the scroll anchor */}
+      <div ref={endOfMessagesRef} /> 
     </div>
   );
 };
