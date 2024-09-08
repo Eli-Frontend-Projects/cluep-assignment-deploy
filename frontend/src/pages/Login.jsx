@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
-import { useAuth } from '../context/AuthContext.jsx';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const [, setToken] = useAuth();
   const navigate = useNavigate();
   const { loginUser, error, isLoading } = useLogin();
 
@@ -23,9 +21,8 @@ function Login() {
     }
 
     try {
-      const data = await loginUser(email, password);
-      setToken(data.token);
-      navigate('/');
+      await loginUser(email, password);
+      navigate('/home');
     } catch (err) {
       setErrorMessage('Failed to login. Please check your email and password and try again.');
       console.error('Login error:', err); // Log the error for debugging
