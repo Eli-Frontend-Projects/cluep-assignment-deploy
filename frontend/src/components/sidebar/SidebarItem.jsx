@@ -18,7 +18,7 @@ const SidebarItem = ({ id, icon, label, isSelected, isHovering, onClick }) => {
         alt={`${label} icon`} 
         className="w-6 h-6 mr-2 object-contain rounded" 
       />
-      <span className="text-center rounded">
+      <span className="text-center rounded truncate">
         {label}
       </span>
     </div>
