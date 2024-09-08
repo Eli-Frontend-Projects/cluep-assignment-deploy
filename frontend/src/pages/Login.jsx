@@ -8,24 +8,22 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
-  const { loginUser, error, isLoading } = useLogin();
+  const { loginUser, isLoading } = useLogin();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(''); // Clear previous errors
-
-    // Validate form data before calling loginUser
-    if (!email || !password) {
-      setErrorMessage('Please fill out all fields.');
-      return;
-    }
+    setErrorMessage('');
 
     try {
-      await loginUser(email, password);
-      navigate('/home');
+      const response = await loginUser(email, password);
+      if (response.error) {
+        setErrorMessage(response.error);
+      } else {
+        navigate('/home');
+      }
     } catch (err) {
       setErrorMessage('Failed to login. Please check your email and password and try again.');
-      console.error('Login error:', err); // Log the error for debugging
+      console.error('Login error:', err);
     }
   };
 
