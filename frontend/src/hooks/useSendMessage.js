@@ -10,7 +10,7 @@ const useSendMessage = (userId, token) => {
 
     setLoading(true);
     try {
-      await axios.post(`http://localhost:5000/user/${userId}/msg`, { message }, {
+      await axios.post(`/user/${userId}/msg`, { message }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
