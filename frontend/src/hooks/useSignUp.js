@@ -11,7 +11,7 @@ const useSignUp = () => {
 
     try {
       // Make the API request to sign up the user
-      const response = await axios.post('http://localhost:5000/api/signup', signUpData);
+      const response = await axios.post('http://localhost:5000/user/signup', signUpData);
       const { token } = response.data;
       
       // Save the token to localStorage or context
