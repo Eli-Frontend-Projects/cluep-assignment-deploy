@@ -4,16 +4,16 @@ import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
 
 const useFetchUsername = () => {
-  const [username, setUsername] = useState(null); // Default username
+  const [username, setUsername] = useState(null);
   const token = localStorage.getItem('authToken');
-  const userId = token ? jwtDecode(token).sub : null;
+  const userId = jwtDecode(token).sub;
 
   useEffect(() => {
     const fetchUsername = async () => {
       if (userId) {
         try {
-          const response = await axios.get(`http://localhost:5000/user/${userId}`);
-          setUsername(response.data.username); // Assuming the API returns the username field
+          const response = await axios.get(`user/${userId}`);
+          setUsername(response.data.username); 
         } catch (error) {
           console.error('Error fetching username:', error);
         }

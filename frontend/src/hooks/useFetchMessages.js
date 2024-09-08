@@ -11,10 +11,10 @@ const useFetchMessages = (userId, token) => {
 
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5000/user/${userId}/msg`, {
+      const response = await axios.get(`/user/${userId}/msg`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setMessages(response.data.map(msg => msg.message)); // Extracting the message from each response
+      setMessages(response.data.map(msg => msg.message)); 
     } catch (err) {
       setError('Failed to fetch messages');
       console.error('Error fetching messages:', err);
