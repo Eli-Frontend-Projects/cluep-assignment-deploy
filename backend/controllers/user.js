@@ -27,10 +27,23 @@ export async function loginUser({ email, password }) {
     throw new Error('Invalid email or password!');
   }
 
-  // Generate a JWT token
   const token = jwt.sign({ sub: user._id }, process.env.JWT_SECRET, {
     expiresIn: '24h',
   });
 
   return token;
+}
+
+export async function getUserFullNameById(userId) {
+  try {
+    const user = await User.findById(userId);
+    
+    if (!user) return { username: userId };
+
+    const username = `${user.firstName} ${user.lastName}`;
+
+    return { username };
+  } catch (err) {
+    return { username: userId };
+  }
 }
