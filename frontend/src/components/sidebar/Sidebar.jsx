@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {jwtDecode} from 'jwt-decode';
+
 import SidebarItem from './SidebarItem'; 
 import SidebarToggleButton from './SidebarToggleButton';
+import useFetchUsername from '../../hooks/useFetchUsername';
 
 const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isHoveringSidebar, setIsHoveringSidebar] = useState(false);
   const [selectedItem, setSelectedItem] = useState("sidebar-chats");
+  const token = localStorage.getItem('authToken');
+  const userId = token ? jwtDecode(token).sub : null;
+  const username = useFetchUsername() ?? "Loading...";
 
   const toggleSidebar = () => {
     setIsVisible(!isVisible);
@@ -26,7 +32,7 @@ const Sidebar = () => {
           <SidebarItem
             id="sidebar-profile"
             icon="/Icons/ProfilePic.jpg"
-            label="Jane Cooper"
+            label={username}
             isSelected={selectedItem === "sidebar-profile"}
             isHovering={isHoveringSidebar}
             onClick={() => handleItemClick("sidebar-profile")}
