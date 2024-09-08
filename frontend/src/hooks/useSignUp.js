@@ -10,18 +10,20 @@ const useSignUp = () => {
     setError(null);
 
     try {
-      // Make the API request to sign up the user
-      const response = await axios.post('http://localhost:5000/user/signup', signUpData);
+      const response = await axios.post('/user/signup', signUpData);
       const { token } = response.data;
       
-      // Save the token to localStorage or context
       localStorage.setItem('authToken', token);
-      
-      // Redirect to the home page after successful sign-up
       navigate('/home');
     } catch (err) {
-      // Handle errors and set the error state
-      setError('Sign up failed. Please check your details and try again.');
+      console.log(error, "Adfadsfas");
+      if (err.response && err.response.data && err.response.data.error) {
+        // Set error message from backend
+        setError(err.response.data.error);
+      } else {
+        // Handle unexpected errors
+        setError('Sign up failed. Please try again.');
+      }
     }
   };
 
