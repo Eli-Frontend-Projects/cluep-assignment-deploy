@@ -16,6 +16,7 @@ function Login() {
 
     try {
       const response = await loginUser(email, password);
+      console.log('response: ',response);
       if (response.error) {
         setErrorMessage(response.error);
       } else {
