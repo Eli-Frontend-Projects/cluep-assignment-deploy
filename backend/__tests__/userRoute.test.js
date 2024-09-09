@@ -15,6 +15,9 @@ import mongoose from 'mongoose';
 dotenv.config();
 
 let server;
+const BASE_URL = process.env.API_BASE_URL; 
+
+axios.defaults.baseURL = BASE_URL;
 
 describe('User Routes', () => {
   let testToken = '';
@@ -38,7 +41,7 @@ describe('User Routes', () => {
   });
 
   test('POST /user/signup should create a new user and return a token', async () => {
-    const response = await axios.post('http://localhost:5000/user/signup', {
+    const response = await axios.post('/user/signup', {
       firstName: 'John',
       lastName: 'Doe',
       email: 'johndoekk@example.com',
@@ -67,7 +70,7 @@ describe('User Routes', () => {
   });
 
   test('POST /user/login should return a token for valid credentials', async () => {
-    const response = await axios.post('http://localhost:5000/user/login', {
+    const response = await axios.post('/user/login', {
       email: 'johndoekk@example.com',
       password: 'securepassword123',
     });
@@ -79,7 +82,7 @@ describe('User Routes', () => {
   });
 
   test('GET /user/:id should return the full name of the user', async () => {
-    const response = await axios.get(`http://localhost:5000/user/${testUserId}`, {
+    const response = await axios.get(`/user/${testUserId}`, {
       headers: {
         Authorization: `Bearer ${testToken}`,
       },
@@ -89,9 +92,9 @@ describe('User Routes', () => {
     expect(response.data).toHaveProperty('username', 'John Doe');
   });
 
-  test('GET /user/:id with invalid MongoDB ID should return 404', async () => {
+  test('GET /user/:id with invalid MongoDB ID should return 500', async () => {
     try {
-      await axios.get('http://localhost:5000/user/invalidUserId', {
+      await axios.get('/user/invalidUserId', {
         headers: {
           Authorization: `Bearer ${testToken}`,
         },
@@ -101,17 +104,17 @@ describe('User Routes', () => {
     }
   });
 
-test('GET /user/:id with non-existent ID should return 404', async () => {
-  try {
-    await axios.get('http://localhost:5000/user/60d21b4667d0d8992e610c85', { // Replace with a non-existent ID
-      headers: {
-        Authorization: `Bearer ${testToken}`,
-      },
-    });
-  } catch (error) {
-    expect(error.response.status).toBe(404);
-    expect(error.response.data).toHaveProperty('error', 'User not found');
-  }
-});
+  test('GET /user/:id with non-existent ID should return 404', async () => {
+    try {
+      await axios.get(`/user/60d21b4667d0d8992e610c85`, { // Replace with a non-existent ID
+        headers: {
+          Authorization: `Bearer ${testToken}`,
+        },
+      });
+    } catch (error) {
+      expect(error.response.status).toBe(404);
+      expect(error.response.data).toHaveProperty('error', 'User not found');
+    }
+  });
 
 });
