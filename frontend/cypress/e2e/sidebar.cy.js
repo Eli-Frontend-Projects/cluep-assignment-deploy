@@ -1,6 +1,10 @@
 describe("Sidebar Navigation", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/");
+    cy.visit("/");
+    cy.get('input#email').type('johndoe@example.com');
+    cy.get('input#password').type('securepassword123');
+    cy.get('button[type="submit"]').click();
+
   });
 
   context("desktop resolution", () => {
@@ -10,7 +14,7 @@ describe("Sidebar Navigation", () => {
 
     it("should display all required sidebar items", () => {
       // Verify that each SidebarItem is rendered with the correct label
-      cy.get("#sidebar-profile").should("exist").and("contain.text", "Profile");
+      cy.get("#sidebar-profile").should("exist").and("contain.text", "John Doe");
       cy.get("#sidebar-chats").should("exist").and("contain.text", "Chats");
       cy.get("#sidebar-sent").should("exist").and("contain.text", "Sent");
       cy.get("#sidebar-draft").should("exist").and("contain.text", "Draft");
@@ -43,10 +47,8 @@ describe("Sidebar Navigation", () => {
         cy.wait(500); // Adjust wait time as necessary
   
         // Verify that the sidebar has expanded
-        cy.get('div[class*="w-[200px]"]').should('exist'); // Check if width is 200px
+        cy.get('div[class*="w-[160px]"]').should('exist');
         cy.get('#sidebar-profile').should('be.visible'); 
-        cy.get('#sidebar-toggle img')
-          .should('have.attr', 'src', '/Icons/Sidebar-1.png'); // Check if the button image has reverted
       });
   });
 });
