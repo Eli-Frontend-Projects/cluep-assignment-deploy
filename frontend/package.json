@@ -42,5 +42,5 @@
   "devDependencies": {
     "tailwindcss": "^3.4.10"
   },
-  "proxy": "http://https://cluep-assignment.onrender.com:5000"
+  "proxy": "https://cluep-assignment.onrender.com"
 }
