@@ -1,15 +1,14 @@
-import mongoose from 'mongoose';
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test, beforeEach } from '@jest/globals';
 import { createUser, loginUser } from '../controllers/user.js';
 import { User } from '../db/models/user.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'; 
+
+beforeEach(async () => {
+    await User.deleteMany({});
+});
 
 describe('User Authentication Tests', () => {
-  beforeEach(async () => {
-    // Clear the user collection before each test to avoid data conflicts
-    await User.deleteMany({});
-  });
-
   test('Creating a user with all parameters should succeed', async () => {
     const user = {
       firstName: 'Dan',
@@ -18,15 +17,17 @@ describe('User Authentication Tests', () => {
       password: 'hunter2',
     };
 
-    const createdUser = await createUser(user);
+    const { token } = await createUser(user); // Destructure token from the response
+    console.log(process.env.MONGO_DB_URI);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.id;
     
-    // Expect a token to be returned
-    expect(createdUser).toHaveProperty('token');
-    
-    // Find user in database to verify
-    const foundUser = await User.findOne({ email: user.email });
+    console.log(userId);
 
-    // Check if the user's data matches
+    const foundUser = await User.findById(userId);
+    
+    expect(typeof token).toBe('string');
+
     expect(foundUser).toEqual(expect.objectContaining({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -38,7 +39,6 @@ describe('User Authentication Tests', () => {
     const password = 'hunter2';
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a user directly in the database
     const user = await User.create({
       firstName: 'Dan',
       lastName: 'Hunter',
@@ -46,19 +46,15 @@ describe('User Authentication Tests', () => {
       password: hashedPassword,
     });
 
-    // Attempt to log in
-    const loginResponse = await loginUser({ email: user.email, password });
+    const { token } = await loginUser({ email: user.email, password });
 
-    // Expect a token to be returned
-    expect(loginResponse).toHaveProperty('token');
-    expect(typeof loginResponse.token).toBe('string');
+    expect(typeof token).toBe('string');
   });
 
   test('Logging in with incorrect password should throw an error', async () => {
     const password = 'hunter2';
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a user
     await User.create({
       firstName: 'Dan',
       lastName: 'Hunter',
@@ -66,14 +62,12 @@ describe('User Authentication Tests', () => {
       password: hashedPassword,
     });
 
-    // Test invalid login
     await expect(loginUser({ email: 'dan@example.com', password: 'wrongpassword' }))
       .rejects
       .toThrow('Invalid credentials');
   });
 
   test('Logging in with a non-existent email should throw an error', async () => {
-    // Test invalid login
     await expect(loginUser({ email: 'nonexistent@example.com', password: 'hunter2' }))
       .rejects
       .toThrow('Invalid credentials');
