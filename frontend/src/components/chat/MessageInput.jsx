@@ -42,6 +42,7 @@ const MessageInput = ({ message, onMessageChange, onSend }) => {
       </div>
 
       <textarea
+        id="messageInput"
         ref={inputRef}
         value={message}
         onChange={(e) => onMessageChange(e.target.value)}

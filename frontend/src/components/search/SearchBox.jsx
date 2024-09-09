@@ -8,7 +8,7 @@ const SearchBox = ({ searchQuery, setSearchQuery, handleSearch, showSearchBox, s
   };
 
   return (
-    <div className="flex justify-between items-center w-full">
+    <div className="flex justify-between items-center w-full" id="#search-box">
       <div className="relative w-full flex items-center"> 
         <div className={`bg-gray-100 flex flex-row items-center border border-gray-300 rounded-2xl w-full transition-all duration-300 ${showSearchBox ? 'visible' : 'invisible'}`}>
           <img
