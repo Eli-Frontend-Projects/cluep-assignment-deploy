@@ -4,3 +4,4 @@ App.test.js
 notes
 *.epub
 *.txt
+.env
