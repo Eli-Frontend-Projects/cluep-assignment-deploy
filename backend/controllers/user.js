@@ -59,7 +59,7 @@ export async function getUserFullNameById(userId) {
     const user = await User.findById(userId);
 
     if (!user) {
-      return { username: userId };
+      return null;
     }
 
     const username = `${user.firstName} ${user.lastName}`;
