@@ -4,14 +4,9 @@ export function userRoutes(app) {
   app.post('/user/login', async (req, res) => {
     try {
       const response = await loginUser(req.body);
-      if (response.error) {
-        return res.status(400).send({ error: response.error });
-      }
       return res.status(200).send({ token: response.token });
     } catch (err) {
-      return res.status(500).send({
-        error: 'An error occurred during login.',
-      });
+      return res.status(400).send({ error: err.message });
     }
   });
 
@@ -19,15 +14,9 @@ export function userRoutes(app) {
     try {
       const { firstName, lastName, email, password } = req.body;
       const response = await createUser({ firstName, lastName, email, password });
-      console.log('response', response)
-      if (response.error) {
-        return res.status(400).send({ error: response.error });
-      }
       return res.status(201).send({ message: 'User created successfully', token: response.token });
     } catch (err) {
-      return res.status(500).send({
-        error: 'An error occurred during signup.',
-      });
+      return res.status(400).send({ error: err.message });
     }
   });
 

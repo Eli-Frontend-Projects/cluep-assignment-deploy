@@ -1,67 +1,71 @@
-import bcrypt from 'bcrypt';
 import { User } from '../db/models/user.js';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-function generateToken(userId) {
-  return jwt.sign({ sub: userId }, process.env.JWT_SECRET, {
-    expiresIn: '24h',
-  });
-}
-
-export async function getUserFullNameById(userId) {
-  try {
-    const user = await User.findById(userId);
-    
-    if (!user) return { username: userId };
-
-    const username = `${user.firstName} ${user.lastName}`;
-
-    return { username };
-  } catch (err) {
-    return { username: userId };
-  }
-}
-
-export async function createUser({ firstName, lastName, email, password }) {
+export const createUser = async ({ firstName, lastName, email, password }) => {
   try {
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
-      return { error: 'Email is already in use' };
+      throw new Error('User already exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({
+    const newUser = new User({
       firstName,
       lastName,
       email,
       password: hashedPassword,
     });
 
-    await user.save();
-    const token = generateToken(user._id);
+    await newUser.save();
+
+    const token = jwt.sign({ id: newUser._id, email: newUser.email }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
 
     return { token };
   } catch (error) {
-    return { error: 'Unable to create user, please try again' };
+    throw new Error(`Failed to create user: ${error.message}`);
   }
-}
+};
 
-export async function loginUser({ email, password }) {
+export const loginUser = async ({ email, password }) => {
   try {
     const user = await User.findOne({ email });
+
     if (!user) {
-      return { error: 'Invalid credentials' };
+      throw new Error('Invalid credentials');
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    if (!isPasswordCorrect) {
-      return { error: 'Invalid credentials' };
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      throw new Error('Invalid credentials');
     }
 
-    const token = generateToken(user._id);
+    const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
 
     return { token };
   } catch (error) {
-    return { error: 'Invalid credentials' };
+    throw new Error(`Login failed: ${error.message}`);
+  }
+};
+
+export async function getUserFullNameById(userId) {
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return { username: userId };
+    }
+
+    const username = `${user.firstName} ${user.lastName}`;
+
+    return { username };
+  } catch (err) {
+    throw new Error(`Failed to retrieve user: ${err.message}`);
   }
 }
