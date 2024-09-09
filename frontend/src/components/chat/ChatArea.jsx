@@ -15,7 +15,7 @@ const ChatArea = () => {
   const [messages, setMessages] = useState([]); 
 
   const token = localStorage.getItem('authToken');
-  const userId = jwtDecode(token).sub;
+  const userId = jwtDecode(token).id;
 
   const { messages: fetchedMessages, error, loading } = useFetchMessages(userId, token);
   const { sendMessage } = useSendMessage(userId, token);

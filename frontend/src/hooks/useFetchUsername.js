@@ -6,7 +6,7 @@ import {jwtDecode} from 'jwt-decode';
 const useFetchUsername = () => {
   const [username, setUsername] = useState(null);
   const token = localStorage.getItem('authToken');
-  const userId = jwtDecode(token).sub;
+  const userId = jwtDecode(token).id;
 
   useEffect(() => {
     const fetchUsername = async () => {
